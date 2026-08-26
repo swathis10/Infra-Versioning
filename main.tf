@@ -11,11 +11,10 @@ resource "aws_s3_bucket" "demo_bucket" {
 
 # Create EC2 instance
 resource "aws_instance" "demo_ec2" {
-  ami = "ami-0fc5d935ebf8bc3bc"
+  ami = "ami-006f82a1d5a27da54"
   instance_type = var.ec2_instance_type
-  key_name      = "my-key"
-  user_data = file("${path.module}/scripts/install.sh")
-  security_groups = ["default"]
+  key_name      = "kubernetes"
+  security_groups = ["default1"]
 
   tags = {
     Name        = "DemoEC2Instance"
