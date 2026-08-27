@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/manjukolkar/Infra-Versioning.git'
+                git branch: 'master', url: 'https://github.com/swathis10/Infra-Versioning.git'
             }
         }
 
@@ -32,28 +32,6 @@ pipeline {
             steps {
                 withAWS(credentials: 'aws-creds', region: "${AWS_REGION}") {
                     sh 'terraform plan -input=false -out=tfplan'
-                }
-            }
-        }
-
-        stage('Approval to Proceed') {
-            steps {
-                script {
-                    def userInput = input(
-                        id: 'ApprovalInput',
-                        message: '⚠️ Do you want to proceed with Terraform Apply?',
-                        parameters: [
-                            choice(
-                                name: 'CONFIRM',
-                                choices: ['No', 'Yes'],
-                                description: 'Select "Yes" to continue deployment'
-                            )
-                        ]
-                    )
-
-                    if (userInput != 'Yes') {
-                        error("❌ Terraform Apply aborted by user.")
-                    }
                 }
             }
         }
