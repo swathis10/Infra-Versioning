@@ -13,5 +13,5 @@ variable "ec2_instance_type" {
 variable "bucket_name" {
   description = "S3 bucket name"
   type        = string
-  default     = "infra-demo-app-bucket-1234567"
+  default     = "infra-demo-app-bucket-123456789"
 }
